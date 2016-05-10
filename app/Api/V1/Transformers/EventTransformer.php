@@ -21,6 +21,7 @@ class EventTransformer extends TransformerAbstract
             'end' => $event->end,
             'hasEnd' => $event->hasEnd,
             'title' => $event->title,
+            'location' => $event->location,
             'featured' => $event->featured,
             'livestream' => $event->livestream,
         ];

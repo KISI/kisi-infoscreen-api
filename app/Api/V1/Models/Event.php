@@ -9,11 +9,11 @@ class Event extends Model {
 	protected $table = 'events';
 	public $timestamps = true;
 	protected $casts = [
-		'start' => 'time',
-		'end' => 'time',
+		'start' => 'dateTime',
+		'end' => 'dateTime',
 		'hasEnd' => 'boolean',
 		'title' => 'string',
-		'dest' => 'string',
+		'location' => 'string',
 		'featured' => 'boolean',
 		'livestream' => 'boolean'
 	];

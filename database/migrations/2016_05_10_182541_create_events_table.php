@@ -10,11 +10,11 @@ class CreateEventsTable extends Migration {
 		Schema::create('events', function(Blueprint $table) {
 			$table->engine = 'InnoDB';
 			$table->increments('id');
-			$table->time('start');
-			$table->time('end');
+			$table->dateTime('start');
+			$table->dateTime('end');
 			$table->boolean('hasEnd');
 			$table->string('title');
-			$table->string('dest');
+			$table->string('location');
 			$table->boolean('featured');
 			$table->boolean('livestream');
 			$table->timestamps();
