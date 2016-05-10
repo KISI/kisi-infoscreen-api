@@ -11,6 +11,20 @@
 |
 */
 
-$app->get('/', function () use ($app) {
+/*$app->get('/', function () use ($app) {
     return $app->version();
+});*/
+
+$api = app('Dingo\Api\Routing\Router');
+
+$api->group([
+    'version' => 'v1',
+    'namespace' => 'App\Api\V1\Controllers',
+], function($api)
+{
+    $api->get('/api', function(){
+        return "PONG";
+    });
+    
+    $api->get('/events', 'EventsController@getEvents');
 });
