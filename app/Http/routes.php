@@ -27,4 +27,19 @@ $api->group([
     });
     
     $api->get('/events', 'EventsController@getEvents');
+    $api->post('/backend/authenticate', 'AuthenticateController@backend');
+});
+
+$api->group([
+    'version' => 'v1',
+    'namespace' => 'App\Api\V1\Controllers',
+    'middleware' => 'api.auth',
+    'providers' => 'jwt',
+], function($api)
+{
+    $api->get('/backend/events', 'BackendApiController@getEvents');
+    $api->get('/backend/event/{eventid}', 'BackendApiController@getEvent');
+    $api->put('/backend/event/{eventid}', 'BackendApiController@updateEvent');
+    $api->post('/backend/event', 'BackendApiController@createEvent');
+    $api->delete('/backend/event/{eventid}', 'BackendApiController@deleteEvent');
 });

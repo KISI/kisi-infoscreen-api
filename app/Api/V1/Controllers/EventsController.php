@@ -18,21 +18,14 @@ class EventsController extends Controller
             'count' => 'required|numeric',
             'start' => 'numeric',
             'end' => 'numeric',
+            'livestream' => 'boolean',
+            'maxstart' => 'numeric',
+            'minend' => 'numeric'
         ]);
 
         if ($validator->fails()) {
             throw new StoreResourceFailedException('Could not get events.', $validator->errors());
         }
-        
-        $event = new Event();
-        $event->start = new \DateTime();
-        $event->end = new \DateTime();
-        $event->hasEnd = false;
-        $event->title = "test event";
-        $event->location = "test location";
-        $event->featured = true;
-        $event->livestream = false;
-        $event->save();
         
         $events = Event::take($request["count"]);
         
@@ -44,6 +37,26 @@ class EventsController extends Controller
         if (isset($request["end"]))
         {
             $events = $events->where('end','<=',\DateTime::createFromFormat( 'U', $request["end"] ));
+        }
+        
+        if (isset($request["livestream"]) && $request["livestream"])
+        {
+            $events = $events->where('livestream', true);
+        }
+        
+        if (isset($request["minend"]))
+        {
+            $events = $events->where('end','>=',\DateTime::createFromFormat( 'U', $request["minend"] ));
+        }
+        
+        if (isset($request["maxstart"]))
+        {
+            $events = $events->where('start','<',\DateTime::createFromFormat( 'U', $request["maxstart"] ));
+        }
+        
+        if (isset($request["reverse"]))
+        {
+            $events = $events->orderBy('start','DESC');
         }
 
         $events = $events->get();

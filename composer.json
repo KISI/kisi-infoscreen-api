@@ -8,7 +8,9 @@
         "php": ">=5.5.9",
         "laravel/lumen-framework": "5.2.*",
         "vlucas/phpdotenv": "~2.2",
-        "dingo/api": "1.0.x@dev"
+        "dingo/api": "1.0.x@dev",
+        "tymon/jwt-auth": "1.0.0-alpha.2",
+        "irazasyed/jwt-auth-guard": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

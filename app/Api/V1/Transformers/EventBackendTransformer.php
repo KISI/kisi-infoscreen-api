@@ -12,11 +12,12 @@ namespace App\Api\V1\Transformers;
 use App\Api\V1\Models\Event;
 use League\Fractal\TransformerAbstract;
 
-class EventTransformer extends TransformerAbstract
+class EventBackendTransformer extends TransformerAbstract
 {
     public function transform(Event $event)
     {
         return [
+            'id' => $event->id,
             'start' => $event->start->getTimestamp(),
             'end' => $event->end->getTimestamp(),
             'hasEnd' => $event->hasEnd,
