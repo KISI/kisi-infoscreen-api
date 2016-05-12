@@ -58,6 +58,9 @@ class EventsController extends Controller
         {
             $events = $events->orderBy('start','DESC');
         }
+        else {
+            $events = $events->orderBy('start','ASC');
+        }
 
         $events = $events->get();
 

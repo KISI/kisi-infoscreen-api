@@ -17,6 +17,7 @@ class EventTransformer extends TransformerAbstract
     public function transform(Event $event)
     {
         return [
+            'id' => $event->id,
             'start' => $event->start->getTimestamp(),
             'end' => $event->end->getTimestamp(),
             'hasEnd' => $event->hasEnd,
