@@ -32,11 +32,14 @@ class EventsController extends Controller
         if (isset($request["start"]))
         {
             $events = $events->where('start','>=',\DateTime::createFromFormat( 'U', $request["start"] ));
-        }
-        
-        if (isset($request["end"]))
-        {
-            $events = $events->where('end','<=',\DateTime::createFromFormat( 'U', $request["end"] ));
+            if (isset($request["end"]))
+            {
+                $events = $events->where('end','<=',\DateTime::createFromFormat( 'U', $request["end"] ));
+            } else {
+                $end = \DateTime::createFromFormat( 'U', $request["start"]);
+                $end->setTime(23,59,59);
+                $events = $events->where('end','<=', $end);
+            }
         }
         
         if (isset($request["livestream"]) && $request["livestream"])
