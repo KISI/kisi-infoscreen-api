@@ -189,13 +189,16 @@ class BackendApiController extends Controller
         $date = new \DateTime($request["date"]);
         $newdate = new \DateTime($request["newdate"]);
         $events = Event::whereDate('start', '=', $date->format('Y-m-d'))->get();
+        $newevents = array();
 
         foreach ($events as $event) {
             $newevent = $event->replicate();
             $newevent->start->setDate((int)$newdate->format("Y"),(int)$newdate->format("n"),(int)$newdate->format("j"));
+            $newevent->end->setDate((int)$newdate->format("Y"),(int)$newdate->format("n"),(int)$newdate->format("j"));
             $newevent->save();
+            array_push($newevents, $newevent);
         }
         
-        return;
+        return $this->response->item($newevents, new EventBackendTransformer());
     }
 }
