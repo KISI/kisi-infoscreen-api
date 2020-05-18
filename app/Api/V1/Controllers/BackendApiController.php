@@ -174,4 +174,28 @@ class BackendApiController extends Controller
         
         return $this->response->item($event, new EventBackendTransformer());
     }
+
+    public function cloneEvents(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'date' => 'required|date',
+            'newdate' => 'required|date',
+        ]);
+
+        if ($validator->fails()) {
+            throw new StoreResourceFailedException('Could not get events.', $validator->errors());
+        }
+
+        $date = new \DateTime($request["date"]);
+        $newdate = new \DateTime($request["newdate"]);
+        $events = Event::whereDate('start', '=', $date->format('Y-m-d'))->get();
+
+        foreach ($events as $event) {
+            $newevent = $event->replicate();
+            $newevent->start->setDate((int)$newdate->format("Y"),(int)$newdate->format("n"),(int)$newdate->format("j"));
+            $newevent->save();
+        }
+        
+        return;
+    }
 }

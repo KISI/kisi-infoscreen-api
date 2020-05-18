@@ -38,6 +38,7 @@ $api->group([
 ], function($api)
 {
     $api->get('/backend/events', 'BackendApiController@getEvents');
+    $api->post('/backend/events/clone', 'BackendApiController@cloneEvents');
     $api->get('/backend/event/{eventid}', 'BackendApiController@getEvent');
     $api->put('/backend/event/{eventid}', 'BackendApiController@updateEvent');
     $api->post('/backend/event', 'BackendApiController@createEvent');
